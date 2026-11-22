@@ -63,7 +63,12 @@ static void exibir_menu(void)
 
 int main(void)
 {
-    Estacionamento estacionamento = {0};
+    Estacionamento estacionamento;
+    if (!iniciar_estacionamento(&estacionamento)) {
+        fputs("Erro ao reservar memória para os veículos.\n", stderr);
+        return EXIT_FAILURE;
+    }
+
     bool executando = true;
     while (executando && !feof(stdin) && !ferror(stdin)) {
         int opcao;
@@ -88,6 +93,7 @@ int main(void)
         }
     }
 
+    encerrar_estacionamento(&estacionamento);
     puts("Sessão encerrada.");
     return 0;
 }

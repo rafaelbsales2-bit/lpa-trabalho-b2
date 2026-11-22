@@ -2,6 +2,27 @@
 
 #include <stdio.h>
 
+#include <stdlib.h>
+
+bool iniciar_estacionamento(Estacionamento *estacionamento)
+{
+    *estacionamento = (Estacionamento){0};
+    const int capacidade_inicial = 2;
+    estacionamento->veiculos = malloc(capacidade_inicial * sizeof *estacionamento->veiculos);
+    if (estacionamento->veiculos == NULL) {
+        return false;
+    }
+
+    estacionamento->capacidade = capacidade_inicial;
+    return true;
+}
+
+void encerrar_estacionamento(Estacionamento *estacionamento)
+{
+    free(estacionamento->veiculos);
+    *estacionamento = (Estacionamento){0};
+}
+
 void exibir_mapa(const Estacionamento *estacionamento)
 {
     printf("\n    ");
