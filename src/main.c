@@ -1,3 +1,5 @@
+#include "estacionamento.h"
+
 #include <ctype.h>
 #include <errno.h>
 #include <limits.h>
@@ -55,11 +57,13 @@ static bool ler_inteiro(const char *pergunta, int *numero)
 static void exibir_menu(void)
 {
     puts("\nSistema de Gestão de Estacionamento");
+    puts("7 - Exibir mapa de vagas");
     puts("0 - Encerrar");
 }
 
 int main(void)
 {
+    Estacionamento estacionamento = {0};
     bool executando = true;
     while (executando && !feof(stdin) && !ferror(stdin)) {
         int opcao;
@@ -72,6 +76,9 @@ int main(void)
         }
 
         switch (opcao) {
+        case 7:
+            exibir_mapa(&estacionamento);
+            break;
         case 0:
             executando = false;
             break;
