@@ -4,6 +4,47 @@
 
 #include <stdlib.h>
 
+#include <string.h>
+
+static bool posicao_valida(int fileira, int coluna)
+{
+    return fileira >= 0 && fileira < FILEIRAS && coluna >= 0 && coluna < COLUNAS;
+}
+
+int buscar_veiculo(const Estacionamento *estacionamento, const char *id)
+{
+    for (int indice = 0; indice < estacionamento->quantidade; ++indice) {
+        if (strcmp(estacionamento->veiculos[indice].id, id) == 0) {
+            return indice;
+        }
+    }
+    return -1;
+}
+
+Resultado cadastrar_veiculo(Estacionamento *estacionamento, const Veiculo *veiculo)
+{
+    if (estacionamento->quantidade == TOTAL_VAGAS) {
+        return ESTACIONAMENTO_LOTADO;
+    }
+    if (buscar_veiculo(estacionamento, veiculo->id) >= 0) {
+        return ID_DUPLICADO;
+    }
+    if (!posicao_valida(veiculo->fileira, veiculo->coluna)) {
+        return POSICAO_INVALIDA;
+    }
+    int *vaga = &estacionamento->mapa[veiculo->fileira][veiculo->coluna];
+    if (*vaga) {
+        return VAGA_OCUPADA;
+    }
+    if (estacionamento->quantidade == estacionamento->capacidade) {
+        return SEM_ESPACO_NO_VETOR;
+    }
+
+    estacionamento->veiculos[estacionamento->quantidade++] = *veiculo;
+    *vaga = 1;
+    return OPERACAO_OK;
+}
+
 bool iniciar_estacionamento(Estacionamento *estacionamento)
 {
     *estacionamento = (Estacionamento){0};

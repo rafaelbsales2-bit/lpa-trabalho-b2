@@ -6,6 +6,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 static bool ler_linha(const char *pergunta, char linha[], size_t capacidade)
 {
@@ -54,10 +55,106 @@ static bool ler_inteiro(const char *pergunta, int *numero)
     return true;
 }
 
+static bool ler_id(char id[ID_TAMANHO + 1])
+{
+    char linha[ID_TAMANHO + 3];
+    if (!ler_linha("Identificador: ", linha, sizeof linha) || strlen(linha) != ID_TAMANHO) {
+        puts("Identificador inválido. Digite 7 letras ou dígitos.");
+        return false;
+    }
+
+    for (int i = 0; i < ID_TAMANHO; ++i) {
+        char caractere = linha[i];
+        if (caractere >= 'a' && caractere <= 'z') {
+            caractere = (char)toupper((unsigned char)caractere);
+        }
+        if ((caractere < 'A' || caractere > 'Z') && (caractere < '0' || caractere > '9')) {
+            puts("Identificador inválido. Use apenas letras de A a Z e dígitos.");
+            return false;
+        }
+        id[i] = caractere;
+    }
+    id[ID_TAMANHO] = '\0';
+    return true;
+}
+
+static bool ler_descricao(char descricao[DESCRICAO_MAXIMA + 1])
+{
+    char linha[DESCRICAO_MAXIMA + 3];
+    if (!ler_linha("Descrição: ", linha, sizeof linha)
+        || linha[0] == '\0' || strlen(linha) > DESCRICAO_MAXIMA) {
+        puts("Descrição inválida. Digite de 1 a 60 caracteres.");
+        return false;
+    }
+    strcpy(descricao, linha);
+    return true;
+}
+
+static bool ler_categoria(int *categoria)
+{
+    if (!ler_inteiro("Categoria (1 = carro, 2 = moto): ", categoria)
+        || (*categoria != CARRO && *categoria != MOTO)) {
+        puts("Categoria inválida.");
+        return false;
+    }
+    return true;
+}
+
+static bool ler_posicao(int *fileira, int *coluna)
+{
+    int numero_fileira;
+    int numero_coluna;
+    if (!ler_inteiro("Fileira (1 a 4): ", &numero_fileira)
+        || numero_fileira < 1 || numero_fileira > FILEIRAS) {
+        puts("Fileira inválida.");
+        return false;
+    }
+    if (!ler_inteiro("Coluna (1 a 5): ", &numero_coluna)
+        || numero_coluna < 1 || numero_coluna > COLUNAS) {
+        puts("Coluna inválida.");
+        return false;
+    }
+    *fileira = numero_fileira - 1;
+    *coluna = numero_coluna - 1;
+    return true;
+}
+
+static void cadastrar(Estacionamento *estacionamento)
+{
+    Veiculo veiculo = {0};
+    if (!ler_id(veiculo.id) || !ler_descricao(veiculo.descricao)
+        || !ler_categoria(&veiculo.categoria) || !ler_posicao(&veiculo.fileira, &veiculo.coluna)) {
+        return;
+    }
+
+    switch (cadastrar_veiculo(estacionamento, &veiculo)) {
+    case OPERACAO_OK:
+        printf("Veículo %s cadastrado em F%d/C%d.\n",
+               veiculo.id, veiculo.fileira + 1, veiculo.coluna + 1);
+        break;
+    case ID_DUPLICADO:
+        puts("Identificador já cadastrado.");
+        break;
+    case VAGA_OCUPADA:
+        puts("Vaga ocupada.");
+        break;
+    case POSICAO_INVALIDA:
+        puts("Posição inválida.");
+        break;
+    case ESTACIONAMENTO_LOTADO:
+        puts("Estacionamento lotado.");
+        break;
+    case SEM_ESPACO_NO_VETOR:
+        puts("A coleção atingiu a capacidade inicial.");
+        break;
+    }
+}
+
 static void exibir_menu(void)
 {
     puts("\nSistema de Gestão de Estacionamento");
     puts("7 - Exibir mapa de vagas");
+    puts("1 - Cadastrar veículo");
     puts("0 - Encerrar");
 }
 
@@ -83,6 +180,9 @@ int main(void)
         switch (opcao) {
         case 7:
             exibir_mapa(&estacionamento);
+            break;
+        case 1:
+            cadastrar(&estacionamento);
             break;
         case 0:
             executando = false;

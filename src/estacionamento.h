@@ -23,6 +23,17 @@ typedef struct {
     int mapa[FILEIRAS][COLUNAS];
 } Estacionamento;
 
+typedef enum {
+    OPERACAO_OK,
+    ID_DUPLICADO,
+    POSICAO_INVALIDA,
+    VAGA_OCUPADA,
+    ESTACIONAMENTO_LOTADO,
+    SEM_ESPACO_NO_VETOR
+} Resultado;
+
+int buscar_veiculo(const Estacionamento *estacionamento, const char *id);
+Resultado cadastrar_veiculo(Estacionamento *estacionamento, const Veiculo *veiculo);
 bool iniciar_estacionamento(Estacionamento *estacionamento);
 void encerrar_estacionamento(Estacionamento *estacionamento);
 void exibir_mapa(const Estacionamento *estacionamento);
