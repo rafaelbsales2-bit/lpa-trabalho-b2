@@ -73,6 +73,17 @@ ResultadoMovimentacao mover_veiculo(Estacionamento *estacionamento, int indice,
     return MOVIMENTO_OK;
 }
 
+void remover_veiculo(Estacionamento *estacionamento, int indice)
+{
+    Veiculo *veiculo = &estacionamento->veiculos[indice];
+    estacionamento->mapa[veiculo->fileira][veiculo->coluna] = 0;
+
+    for (int i = indice + 1; i < estacionamento->quantidade; ++i) {
+        estacionamento->veiculos[i - 1] = estacionamento->veiculos[i];
+    }
+    --estacionamento->quantidade;
+}
+
 bool iniciar_estacionamento(Estacionamento *estacionamento)
 {
     *estacionamento = (Estacionamento){0};

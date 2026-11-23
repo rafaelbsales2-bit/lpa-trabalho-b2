@@ -237,6 +237,15 @@ static void mover(Estacionamento *estacionamento)
     }
 }
 
+static void remover(Estacionamento *estacionamento)
+{
+    int indice = selecionar_veiculo(estacionamento);
+    if (indice >= 0) {
+        remover_veiculo(estacionamento, indice);
+        puts("Veículo removido e vaga liberada.");
+    }
+}
+
 static void listar(const Estacionamento *estacionamento)
 {
     if (estacionamento->quantidade == 0) {
@@ -256,6 +265,7 @@ static void exibir_menu(void)
     puts("2 - Consultar veículo por identificador");
     puts("3 - Atualizar descrição ou categoria");
     puts("4 - Mover veículo para outra vaga");
+    puts("5 - Remover veículo");
     puts("6 - Listar veículos cadastrados");
     puts("7 - Exibir mapa de vagas");
     puts("0 - Encerrar");
@@ -295,6 +305,9 @@ int main(void)
             break;
         case 4:
             mover(&estacionamento);
+            break;
+        case 5:
+            remover(&estacionamento);
             break;
         case 6:
             listar(&estacionamento);

@@ -41,6 +41,7 @@ typedef enum {
 
 ResultadoMovimentacao mover_veiculo(Estacionamento *estacionamento, int indice,
                                     int fileira, int coluna);
+void remover_veiculo(Estacionamento *estacionamento, int indice);
 int buscar_veiculo(const Estacionamento *estacionamento, const char *id);
 Resultado cadastrar_veiculo(Estacionamento *estacionamento, const Veiculo *veiculo);
 bool iniciar_estacionamento(Estacionamento *estacionamento);
