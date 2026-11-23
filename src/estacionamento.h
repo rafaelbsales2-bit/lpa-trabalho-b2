@@ -6,11 +6,12 @@
 enum { FILEIRAS = 4, COLUNAS = 5, TOTAL_VAGAS = FILEIRAS * COLUNAS };
 
 enum { ID_TAMANHO = 7, DESCRICAO_MAXIMA = 60 };
+enum { DESCRICAO_BUFFER = DESCRICAO_MAXIMA * 4 + 1 };
 enum { CARRO = 1, MOTO = 2 };
 
 typedef struct {
     char id[ID_TAMANHO + 1];
-    char descricao[DESCRICAO_MAXIMA + 1];
+    char descricao[DESCRICAO_BUFFER];
     int categoria;
     int fileira;
     int coluna;

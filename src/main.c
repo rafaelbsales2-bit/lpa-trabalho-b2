@@ -78,11 +78,57 @@ static bool ler_id(char id[ID_TAMANHO + 1])
     return true;
 }
 
-static bool ler_descricao(char descricao[DESCRICAO_MAXIMA + 1])
+static int largura_utf8(const unsigned char *texto)
 {
-    char linha[DESCRICAO_MAXIMA + 3];
-    if (!ler_linha("Descrição: ", linha, sizeof linha)
-        || linha[0] == '\0' || strlen(linha) > DESCRICAO_MAXIMA) {
+    unsigned char inicio = texto[0];
+    if (inicio <= 0x7F) {
+        return 1;
+    }
+
+    int largura;
+    if (inicio >= 0xC2 && inicio <= 0xDF) {
+        largura = 2;
+    } else if (inicio >= 0xE0 && inicio <= 0xEF) {
+        largura = 3;
+    } else if (inicio >= 0xF0 && inicio <= 0xF4) {
+        largura = 4;
+    } else {
+        return 0;
+    }
+
+    for (int i = 1; i < largura; ++i) {
+        if (texto[i] < 0x80 || texto[i] > 0xBF) {
+            return 0;
+        }
+    }
+
+    // Exclui codificações longas demais, substitutos e valores acima de U+10FFFF.
+    unsigned char segundo = texto[1];
+    if ((inicio == 0xE0 && segundo < 0xA0) || (inicio == 0xED && segundo > 0x9F)
+        || (inicio == 0xF0 && segundo < 0x90) || (inicio == 0xF4 && segundo > 0x8F)) {
+        return 0;
+    }
+    return largura;
+}
+
+static bool descricao_valida(const char *linha)
+{
+    const unsigned char *texto = (const unsigned char *)linha;
+    int caracteres = 0;
+    while (*texto != '\0') {
+        int largura = largura_utf8(texto);
+        if (largura == 0 || ++caracteres > DESCRICAO_MAXIMA) {
+            return false;
+        }
+        texto += largura;
+    }
+    return caracteres > 0;
+}
+
+static bool ler_descricao(char descricao[DESCRICAO_BUFFER])
+{
+    char linha[DESCRICAO_BUFFER + 1];
+    if (!ler_linha("Descrição: ", linha, sizeof linha) || !descricao_valida(linha)) {
         puts("Descrição inválida. Digite de 1 a 60 caracteres.");
         return false;
     }

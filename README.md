@@ -27,7 +27,7 @@ Trabalhei no menu, no mapa de vagas, na coleção dinâmica, no cadastro, na con
 
 > Organize o meus códigos de maneira profissional para facilitar a leitura e indique erros caso existam. Não aplique as alterações diretamente aos arquivos originais.
 
-A revisão apontou que a descrição era limitada a 60 bytes. Em UTF-8, isso fazia o cadastro rejeitar até uma descrição com 31 letras “á”. Matheus corrigiu a contagem de caracteres acentuados numa versão posterior do programa. [Ver a conversa sobre o código](docs/evidencias/revisao-do-codigo.png).
+A revisão apontou que a descrição era limitada a 60 bytes. Em UTF-8, isso fazia o cadastro rejeitar até uma descrição com 31 letras “á”. Matheus corrigiu essa validação. A descrição aceita até 60 caracteres UTF-8, inclusive quando há acentos. [Ver a conversa sobre o código](docs/evidencias/revisao-do-codigo.png).
 
 **Revisão do README.** Pedi ajuda com a formatação e aproveitei as sugestões para organizar os comandos de compilação e execução e a identificação dos integrantes.
 
