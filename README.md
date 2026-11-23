@@ -87,16 +87,21 @@ ASAN_OPTIONS=detect_leaks=1 ./estacionamento
 
 ## Responsabilidades e integração
 
-Rafael - trabalhei no menu e no mapa (`estrutura-e-menu`), no cadastro e
-na coleção dinâmica (`cadastro-e-colecao`) e na consulta, listagem e edição
-(`consulta-e-atualizacao`). As três branches foram integradas à `main`
-por fast-forward.
+Rafael desenvolveu o menu e o mapa na branch `estrutura-e-menu`, o
+cadastro e a coleção dinâmica na `cadastro-e-colecao` e a consulta,
+listagem e edição na `consulta-e-atualizacao`.
 
-Matheus - trabalhei na movimentação de vagas e na remoção de veículos
-(`movimentacao-e-remocao`), no relatório de ocupação e nas correções de
-percentual e validação UTF-8 (`relatorio-e-correcoes`), além da
-documentação final, testes e evidências (`documentacao-e-testes`). As
-três branches foram integradas à `main` por fast-forward.
+Matheus desenvolveu a movimentação e a remoção na branch
+`movimentacao-e-remocao`. Implementou o relatório de ocupação e as
+correções de percentual e validação UTF-8 na `relatorio-e-correcoes`.
+Registrou a documentação final, os testes e as evidências na
+`documentacao-e-testes`.
+
+Cada integrante fez os commits de suas tarefas nas branches indicadas
+antes de integrá-los à `main` por fast-forward. Essa integração
+preservou o histórico linear. No GitHub, as branches de cada integrante
+foram publicadas no mesmo momento em que os respectivos commits
+chegaram à `main` e continuam disponíveis para conferência.
 
 ## Autoria, IA e referências
 
