@@ -268,6 +268,7 @@ static void exibir_menu(void)
     puts("5 - Remover veículo");
     puts("6 - Listar veículos cadastrados");
     puts("7 - Exibir mapa de vagas");
+    puts("8 - Exibir relatório da ocupação");
     puts("0 - Encerrar");
 }
 
@@ -311,6 +312,9 @@ int main(void)
             break;
         case 6:
             listar(&estacionamento);
+            break;
+        case 8:
+            exibir_relatorio(&estacionamento);
             break;
         case 0:
             executando = false;

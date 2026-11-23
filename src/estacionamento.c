@@ -120,3 +120,28 @@ void exibir_mapa(const Estacionamento *estacionamento)
     }
     puts("Legenda: X = ocupada, . = livre");
 }
+
+void exibir_relatorio(const Estacionamento *estacionamento)
+{
+    int ocupadas = 0;
+    for (int fileira = 0; fileira < FILEIRAS; ++fileira) {
+        for (int coluna = 0; coluna < COLUNAS; ++coluna) {
+            ocupadas += estacionamento->mapa[fileira][coluna];
+        }
+    }
+
+    int carros = 0;
+    for (int indice = 0; indice < estacionamento->quantidade; ++indice) {
+        if (estacionamento->veiculos[indice].categoria == CARRO) {
+            ++carros;
+        }
+    }
+    int motos = estacionamento->quantidade - carros;
+    double percentual = 100.0 * ocupadas / TOTAL_VAGAS;
+
+    printf("\nTotal de vagas: %d\n", TOTAL_VAGAS);
+    printf("Vagas ocupadas: %d\n", ocupadas);
+    printf("Vagas livres: %d\n", TOTAL_VAGAS - ocupadas);
+    printf("Ocupação: %.2f%%\n", percentual);
+    printf("Carros: %d\nMotos: %d\n", carros, motos);
+}

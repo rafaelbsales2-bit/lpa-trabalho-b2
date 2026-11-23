@@ -47,5 +47,6 @@ Resultado cadastrar_veiculo(Estacionamento *estacionamento, const Veiculo *veicu
 bool iniciar_estacionamento(Estacionamento *estacionamento);
 void encerrar_estacionamento(Estacionamento *estacionamento);
 void exibir_mapa(const Estacionamento *estacionamento);
+void exibir_relatorio(const Estacionamento *estacionamento);
 
 #endif
