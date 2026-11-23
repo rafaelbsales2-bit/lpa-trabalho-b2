@@ -144,8 +144,8 @@ static void cadastrar(Estacionamento *estacionamento)
     case ESTACIONAMENTO_LOTADO:
         puts("Estacionamento lotado.");
         break;
-    case SEM_ESPACO_NO_VETOR:
-        puts("A coleção atingiu a capacidade inicial.");
+    case SEM_MEMORIA:
+        puts("Erro ao ampliar a coleção. Cadastro cancelado.");
         break;
     }
 }

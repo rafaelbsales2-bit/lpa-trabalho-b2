@@ -29,7 +29,7 @@ typedef enum {
     POSICAO_INVALIDA,
     VAGA_OCUPADA,
     ESTACIONAMENTO_LOTADO,
-    SEM_ESPACO_NO_VETOR
+    SEM_MEMORIA
 } Resultado;
 
 int buscar_veiculo(const Estacionamento *estacionamento, const char *id);

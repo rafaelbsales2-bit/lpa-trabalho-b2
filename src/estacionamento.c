@@ -37,7 +37,13 @@ Resultado cadastrar_veiculo(Estacionamento *estacionamento, const Veiculo *veicu
         return VAGA_OCUPADA;
     }
     if (estacionamento->quantidade == estacionamento->capacidade) {
-        return SEM_ESPACO_NO_VETOR;
+        int nova_capacidade = estacionamento->capacidade * 2;
+        Veiculo *ampliado = realloc(estacionamento->veiculos, nova_capacidade * sizeof *ampliado);
+        if (ampliado == NULL) {
+            return SEM_MEMORIA;
+        }
+        estacionamento->veiculos = ampliado;
+        estacionamento->capacidade = nova_capacidade;
     }
 
     estacionamento->veiculos[estacionamento->quantidade++] = *veiculo;
