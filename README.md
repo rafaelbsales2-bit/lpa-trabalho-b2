@@ -92,10 +92,11 @@ na coleção dinâmica (`cadastro-e-colecao`) e na consulta, listagem e edição
 (`consulta-e-atualizacao`). As três branches foram integradas à `main`
 por fast-forward.
 
-Matheus - trabalhei na movimentação de vagas, na remoção de veículos, no
-relatório de ocupação, na correção da formatação do percentual, na
-validação UTF-8 da descrição, na documentação final e no registro dos
-testes, integrando as etapas diretamente na `main`.
+Matheus - trabalhei na movimentação de vagas e na remoção de veículos
+(`movimentacao-e-remocao`), no relatório de ocupação e nas correções de
+percentual e validação UTF-8 (`relatorio-e-correcoes`), além da
+documentação final, testes e evidências (`documentacao-e-testes`). As
+três branches foram integradas à `main` por fast-forward.
 
 ## Autoria, IA e referências
 
@@ -117,4 +118,16 @@ A revisão apontou que a descrição era limitada a 60 bytes. Em UTF-8, isso faz
 
 ### Matheus Campelo Teles
 
-Trabalhei na movimentação de vagas, na remoção de veículos, no relatório de ocupação, nas correções de formatação do percentual e de validação UTF-8 da descrição, na documentação do projeto e no registro dos testes da versão integrada. O OpenAI Codex auxiliou na correção de erros, na organização do código e na revisão dos arquivos README. Todo o conteúdo criado foi revisado por mim, Matheus Campelo Teles.
+Trabalhei na movimentação de vagas, na remoção de veículos, no relatório de ocupação, nas correções de formatação do percentual e de validação UTF-8 da descrição, na documentação do projeto e no registro dos testes da versão integrada. Usei o Gemini como apoio na correção de erros, organização do código e revisão dos arquivos README, e utilizei o Gemini para analisar os códigos em C em busca de eventuais erros de sintaxe ou de lógica, além de estudar melhorias de desempenho e boas práticas visando aprendizado e aperfeiçoamento para códigos futuros.
+
+**Análise de desempenho e boas práticas.** Pedi uma avaliação do código em C com foco em desempenho, clareza e explicações sobre possíveis melhorias.
+
+> irei mandar um codigo que fiz e quero que voce me auxilie visando o melhor desempenho e a melhor forma de escrever ele, caso aja alguma coisa que seria bom alterar, me explique como e por que
+
+[Ver a conversa sobre desempenho e boas práticas](docs/evidencias/analise-desempenho-codigo.jpg).
+
+**Revisão de sintaxe, lógica e desempenho.** Pedi que a IA analisasse o código em C para alertar sobre eventuais erros de sintaxe ou de lógica e indicar pontos de melhoria de desempenho para aprendizado em projetos futuros.
+
+> analise esse codigo e caso possua algum erro de sintaxe ou logica me alerte. procure tambem como melhorar o desempenho dele e o que eu poderia ter feito melhor
+
+[Ver a conversa sobre sintaxe, lógica e desempenho](docs/evidencias/revisao-sintaxe-logica-codigo.jpg). 
