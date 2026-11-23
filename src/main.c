@@ -150,11 +150,58 @@ static void cadastrar(Estacionamento *estacionamento)
     }
 }
 
+static const char *nome_categoria(int categoria)
+{
+    return categoria == CARRO ? "Carro" : "Moto";
+}
+
+static void exibir_veiculo(const Veiculo *veiculo)
+{
+    printf("%s | %s | %s | F%d/C%d\n", veiculo->id, veiculo->descricao,
+           nome_categoria(veiculo->categoria), veiculo->fileira + 1, veiculo->coluna + 1);
+}
+
+static int selecionar_veiculo(const Estacionamento *estacionamento)
+{
+    char id[ID_TAMANHO + 1];
+    if (!ler_id(id)) {
+        return -1;
+    }
+
+    int indice = buscar_veiculo(estacionamento, id);
+    if (indice < 0) {
+        puts("Veículo não localizado.");
+    }
+    return indice;
+}
+
+static void consultar(const Estacionamento *estacionamento)
+{
+    int indice = selecionar_veiculo(estacionamento);
+    if (indice >= 0) {
+        exibir_veiculo(&estacionamento->veiculos[indice]);
+    }
+}
+
+static void listar(const Estacionamento *estacionamento)
+{
+    if (estacionamento->quantidade == 0) {
+        puts("Nenhum veículo cadastrado.");
+        return;
+    }
+
+    for (int indice = 0; indice < estacionamento->quantidade; ++indice) {
+        exibir_veiculo(&estacionamento->veiculos[indice]);
+    }
+}
+
 static void exibir_menu(void)
 {
     puts("\nSistema de Gestão de Estacionamento");
-    puts("7 - Exibir mapa de vagas");
     puts("1 - Cadastrar veículo");
+    puts("2 - Consultar veículo por identificador");
+    puts("6 - Listar veículos cadastrados");
+    puts("7 - Exibir mapa de vagas");
     puts("0 - Encerrar");
 }
 
@@ -183,6 +230,12 @@ int main(void)
             break;
         case 1:
             cadastrar(&estacionamento);
+            break;
+        case 2:
+            consultar(&estacionamento);
+            break;
+        case 6:
+            listar(&estacionamento);
             break;
         case 0:
             executando = false;
