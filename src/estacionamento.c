@@ -137,11 +137,11 @@ void exibir_relatorio(const Estacionamento *estacionamento)
         }
     }
     int motos = estacionamento->quantidade - carros;
-    double percentual = 100.0 * ocupadas / TOTAL_VAGAS;
+    int centesimos = 10000 * ocupadas / TOTAL_VAGAS;
 
     printf("\nTotal de vagas: %d\n", TOTAL_VAGAS);
     printf("Vagas ocupadas: %d\n", ocupadas);
     printf("Vagas livres: %d\n", TOTAL_VAGAS - ocupadas);
-    printf("Ocupação: %.2f%%\n", percentual);
+    printf("Ocupação: %d,%02d%%\n", centesimos / 100, centesimos % 100);
     printf("Carros: %d\nMotos: %d\n", carros, motos);
 }
