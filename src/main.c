@@ -208,6 +208,35 @@ static void atualizar(Estacionamento *estacionamento)
     printf("Veículo %s atualizado.\n", revisado.id);
 }
 
+static void mover(Estacionamento *estacionamento)
+{
+    int indice = selecionar_veiculo(estacionamento);
+    if (indice < 0) {
+        return;
+    }
+
+    int fileira;
+    int coluna;
+    if (!ler_posicao(&fileira, &coluna)) {
+        return;
+    }
+
+    switch (mover_veiculo(estacionamento, indice, fileira, coluna)) {
+    case MOVIMENTO_OK:
+        printf("Veículo movido para F%d/C%d.\n", fileira + 1, coluna + 1);
+        break;
+    case MESMA_VAGA:
+        puts("O veículo já está nessa vaga.");
+        break;
+    case DESTINO_OCUPADO:
+        puts("Vaga de destino ocupada.");
+        break;
+    case DESTINO_INVALIDO:
+        puts("Vaga de destino inválida.");
+        break;
+    }
+}
+
 static void listar(const Estacionamento *estacionamento)
 {
     if (estacionamento->quantidade == 0) {
@@ -226,6 +255,7 @@ static void exibir_menu(void)
     puts("1 - Cadastrar veículo");
     puts("2 - Consultar veículo por identificador");
     puts("3 - Atualizar descrição ou categoria");
+    puts("4 - Mover veículo para outra vaga");
     puts("6 - Listar veículos cadastrados");
     puts("7 - Exibir mapa de vagas");
     puts("0 - Encerrar");
@@ -262,6 +292,9 @@ int main(void)
             break;
         case 3:
             atualizar(&estacionamento);
+            break;
+        case 4:
+            mover(&estacionamento);
             break;
         case 6:
             listar(&estacionamento);

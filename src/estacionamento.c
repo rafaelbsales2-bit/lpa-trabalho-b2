@@ -51,6 +51,28 @@ Resultado cadastrar_veiculo(Estacionamento *estacionamento, const Veiculo *veicu
     return OPERACAO_OK;
 }
 
+ResultadoMovimentacao mover_veiculo(Estacionamento *estacionamento, int indice,
+                                    int fileira, int coluna)
+{
+    if (!posicao_valida(fileira, coluna)) {
+        return DESTINO_INVALIDO;
+    }
+
+    Veiculo *veiculo = &estacionamento->veiculos[indice];
+    if (fileira == veiculo->fileira && coluna == veiculo->coluna) {
+        return MESMA_VAGA;
+    }
+    if (estacionamento->mapa[fileira][coluna]) {
+        return DESTINO_OCUPADO;
+    }
+
+    estacionamento->mapa[veiculo->fileira][veiculo->coluna] = 0;
+    estacionamento->mapa[fileira][coluna] = 1;
+    veiculo->fileira = fileira;
+    veiculo->coluna = coluna;
+    return MOVIMENTO_OK;
+}
+
 bool iniciar_estacionamento(Estacionamento *estacionamento)
 {
     *estacionamento = (Estacionamento){0};

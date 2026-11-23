@@ -32,6 +32,15 @@ typedef enum {
     SEM_MEMORIA
 } Resultado;
 
+typedef enum {
+    MOVIMENTO_OK,
+    DESTINO_INVALIDO,
+    MESMA_VAGA,
+    DESTINO_OCUPADO
+} ResultadoMovimentacao;
+
+ResultadoMovimentacao mover_veiculo(Estacionamento *estacionamento, int indice,
+                                    int fileira, int coluna);
 int buscar_veiculo(const Estacionamento *estacionamento, const char *id);
 Resultado cadastrar_veiculo(Estacionamento *estacionamento, const Veiculo *veiculo);
 bool iniciar_estacionamento(Estacionamento *estacionamento);
