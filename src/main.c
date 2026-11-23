@@ -183,6 +183,31 @@ static void consultar(const Estacionamento *estacionamento)
     }
 }
 
+static void atualizar(Estacionamento *estacionamento)
+{
+    int indice = selecionar_veiculo(estacionamento);
+    if (indice < 0) {
+        return;
+    }
+
+    int escolha;
+    if (!ler_inteiro("Alterar 1 = descrição, 2 = categoria, 3 = ambas: ", &escolha)
+        || escolha < 1 || escolha > 3) {
+        puts("Opção de atualização inválida.");
+        return;
+    }
+
+    Veiculo revisado = estacionamento->veiculos[indice];
+    if ((escolha == 1 || escolha == 3) && !ler_descricao(revisado.descricao)) {
+        return;
+    }
+    if ((escolha == 2 || escolha == 3) && !ler_categoria(&revisado.categoria)) {
+        return;
+    }
+    estacionamento->veiculos[indice] = revisado;
+    printf("Veículo %s atualizado.\n", revisado.id);
+}
+
 static void listar(const Estacionamento *estacionamento)
 {
     if (estacionamento->quantidade == 0) {
@@ -200,6 +225,7 @@ static void exibir_menu(void)
     puts("\nSistema de Gestão de Estacionamento");
     puts("1 - Cadastrar veículo");
     puts("2 - Consultar veículo por identificador");
+    puts("3 - Atualizar descrição ou categoria");
     puts("6 - Listar veículos cadastrados");
     puts("7 - Exibir mapa de vagas");
     puts("0 - Encerrar");
@@ -233,6 +259,9 @@ int main(void)
             break;
         case 2:
             consultar(&estacionamento);
+            break;
+        case 3:
+            atualizar(&estacionamento);
             break;
         case 6:
             listar(&estacionamento);
