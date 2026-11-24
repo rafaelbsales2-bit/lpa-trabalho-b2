@@ -136,3 +136,7 @@ Trabalhei na movimentação de vagas, na remoção de veículos, no relatório d
 > analise esse codigo e caso possua algum erro de sintaxe ou logica me alerte. procure tambem como melhorar o desempenho dele e o que eu poderia ter feito melhor
 
 [Ver a conversa sobre sintaxe, lógica e desempenho](docs/evidencias/revisao-sintaxe-logica-codigo.jpg). 
+
+Nenhuma sugestão da IA foi utilizada ou aplicada, visto que ela serviu apenas para a correção do código. Já as sugestões de melhoria de desempenho foram utilizadas apenas para conhecimento próprio, visando implementações em códigos futuros.
+
+Não foi adaptado nenhum código externo ou de fontes externas; todo o conteúdo foi desenvolvido integralmente por mim. 
